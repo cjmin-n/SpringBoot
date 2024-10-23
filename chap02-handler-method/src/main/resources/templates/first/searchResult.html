@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en"> <!-- 타임리프 문법이라고 지정해주는게 관례 -->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Model 에 담긴 커맨드 객체의 정보 출력</h1>
+    <h3 th:text="|메뉴의 이름 : ${menu.name}|"></h3> <!--  | : 문자열이랑 변수 합칠 때 앞뒤로 사용 -->
+    <h3 th:text="|메뉴의 가격 : ${menu.price}|"></h3>
+    <h3 th:text="|메뉴의 카테고리코드 : ${menu.categoryCode}|"></h3>
+    <h3 th:text="|메뉴의 판매상태 : ${menu.orderableStatus}|"></h3>
+</body>
+</html>
