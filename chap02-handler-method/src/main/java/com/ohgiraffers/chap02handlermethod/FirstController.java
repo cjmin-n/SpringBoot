@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.request.WebRequest;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Map;
 
 
@@ -115,5 +117,23 @@ public class FirstController {
         return "first/loginResult";
     }
 
+    @GetMapping("body")
+    public void body() {}
+
+    /*
+        5. @RequestBody 를 이용하는 방법
+        해당 어노테이션은 http 본문 자체를 읽는 부분을
+        모델로 변환시켜 주는 어노테이션이다.
+     */
+
+
+    // 리액트랑 통신할 때 (ex. fetch 요청)
+    // 요청데이터는 json 으로 오는데 이거를 까서 다른 곳으로 전달할 때 사용
+    @PostMapping("body")
+    public void bodyTest(@RequestBody String body) throws UnsupportedEncodingException {
+        System.out.println(body); // post 요청은 body 에 담기는데 해당 값들을 바로 가져올 수 있다.
+        System.out.println(URLDecoder.decode(body, "UTF-8"));
+
+    }
 
 }
