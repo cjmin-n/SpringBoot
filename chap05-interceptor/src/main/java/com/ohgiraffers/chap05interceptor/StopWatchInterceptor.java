@@ -46,6 +46,8 @@ public class StopWatchInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 
+        System.out.println("모델 확인용" + modelAndView.getModelMap());
+
         System.out.println("postHandle 호출함");
         long startTime = (long) request.getAttribute("startTime");
         long endTime = System.currentTimeMillis();
