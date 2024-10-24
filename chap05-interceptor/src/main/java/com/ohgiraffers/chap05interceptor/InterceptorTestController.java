@@ -13,10 +13,10 @@ public class InterceptorTestController {
     @Autowired
     private InterceptorService interceptorService;
     
-    @PostMapping("stopwatch")
+    @PostMapping("stopwatch") // 매개변수 : 테스트용 !!! 안넣어도 됨
     public String handlerMethod(Model model) throws InterruptedException {
         model.addAttribute("test", "모델 테스트");
-        // Interceptor 와 Controller 가 같은 모델을 공유하고 있다.
+        // Interceptor 와 Controller 가 같은 모델을 공유하고 있는지
         System.out.println("핸들러 메소드 호출함");
         interceptorService.method();
         Thread.sleep(1000); // 프로그램 1초 대기
