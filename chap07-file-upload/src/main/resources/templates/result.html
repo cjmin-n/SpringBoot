@@ -10,9 +10,12 @@
         <img th:src="@{${img}}" alt="" style="max-width:100%;">
                     <!--특정 속성을 url 로 반환-->
     </div>
-    <div th:each="img : ${images}">
-        <img th:src="@{${img}}" alt="" style="max-width:50%;">
-    </div>
+    <th:block th:if="${images != null}">
+        <th:block th:each="img : ${images}">
+            <img th:src="@{${img}}" alt="" style="max-width:50%;">
+        </th:block>
+    </th:block>
+
 
 </body>
 </html>
