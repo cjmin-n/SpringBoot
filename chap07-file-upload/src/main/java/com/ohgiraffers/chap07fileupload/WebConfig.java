@@ -15,7 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/img/single/**") // 이 요청이 들어왔을 때
             .addResourceLocations("file:///C:/uploads/single/"); // 이 주소로 응답해라.
 
-        registry.addResourceHandler("/images/multi/**") // 이 요청이 들어왔을 때
+        registry.addResourceHandler("/img/multi/**") // 이 요청이 들어왔을 때
                 .addResourceLocations("file:///C:/uploads/multi/"); // 이 주소로 응답해라.
     }
 }

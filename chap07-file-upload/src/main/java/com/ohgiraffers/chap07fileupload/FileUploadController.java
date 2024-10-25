@@ -90,7 +90,7 @@ public class FileUploadController {
 
                 model.addAttribute("message", "멀티플 업로드 성공!");
 
-                imgList.add("/images/multi/" + savedName);
+                imgList.add("/img/multi/" + savedName);
                 model.addAttribute("images", imgList);
 
             } catch (IOException e) {
