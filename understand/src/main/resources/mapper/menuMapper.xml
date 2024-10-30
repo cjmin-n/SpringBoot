@@ -18,7 +18,7 @@
          WHERE ORDERABLE_STATUS = 'Y'
     </select>
 
-
+    <!-- MenuDTO 로 받을 때 명시안해도됨 / parameterType="com.ohgiraffers.understand.dto.MenuDTO" -->
     <select id="selectOneMenu" resultMap="menuResult">
         SELECT
             *

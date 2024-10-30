@@ -5,6 +5,7 @@ import com.ohgiraffers.understand.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -55,6 +56,21 @@ public class MenuController {
 
         // 로직
         mv.setViewName("menus/allMenus");
+        return mv;
+    }
+
+
+    @GetMapping("regist")
+    public ModelAndView insert(ModelAndView mv){
+
+        mv.setViewName("menus/regist");
+        return mv;
+    }
+
+    @PostMapping("regist")
+    public ModelAndView insert(ModelAndView mv, MenuDTO menuDTO){
+
+
         return mv;
     }
 
