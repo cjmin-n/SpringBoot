@@ -1,6 +1,7 @@
 package com.ohgiraffers.understand.exception;
 
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -30,7 +31,9 @@ public class GlobalExceptionHandler extends Exception {
         return "error/errorMessage";
     }
 
-    @ExceptionHandler(SQLSyntaxErrorException.class)
+    // sql 문법 오류 : SQLSyntaxErrorException
+    // spring 에서는 DataAccessException
+    @ExceptionHandler(DataAccessException.class)
     public String sqlSyntaxErrorExceptionHandler(SQLSyntaxErrorException e, Model model) {
         model.addAttribute("message", "쿼리 작성문이 잘못 되었습니다.");
 
