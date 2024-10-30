@@ -1,6 +1,7 @@
 package com.ohgiraffers.understand.controller;
 
 import com.ohgiraffers.understand.dto.MenuDTO;
+import com.ohgiraffers.understand.exception.NotInsertNameException;
 import com.ohgiraffers.understand.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -68,7 +69,17 @@ public class MenuController {
     }
 
     @PostMapping("regist")
-    public ModelAndView insert(ModelAndView mv, MenuDTO menuDTO){
+    public ModelAndView insertMenu(ModelAndView mv, MenuDTO menuDTO) throws NotInsertNameException {
+
+        int regist = menuService.regist(menuDTO);
+
+        if(regist <= 0){
+            mv.addObject("message", "가격은 음수일 수 없습니다.");
+            mv.setViewName("error/errorMessage");
+
+        }else {
+            mv.setViewName("menus/returnMessage");
+        }
 
 
         return mv;

@@ -1,6 +1,7 @@
 package com.ohgiraffers.understand.exception;
 
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,8 +22,9 @@ public class GlobalExceptionHandler extends Exception {
     }
 
 
-    // DB 제약조건 위반 시 발생 에러
-    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    // DB 제약조건 위반 시 발생 에러 - sqlIntegrityConstraintViolationException
+    // Mybatis 는 DataIntegrityViolationException
+    @ExceptionHandler(DataIntegrityViolationException.class)
     public String sqlIntegrityConstraintViolationExceptionHandler(SQLIntegrityConstraintViolationException e, Model model) {
         model.addAttribute("message", "DB 제약 조건 위반 발생!");
         return "error/errorMessage";

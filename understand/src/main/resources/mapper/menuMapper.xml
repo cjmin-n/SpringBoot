@@ -27,4 +27,19 @@
            AND MENU_CODE = #{code}
     </select>
 
+    <insert id="regist" parameterType="com.ohgiraffers.understand.dto.MenuDTO">
+        INSERT INTO TBL_MENU(
+            MENU_NAME,
+            MENU_PRICE,
+            CATEGORY_CODE,
+            ORDERABLE_STATUS
+        ) VALUES(
+            #{name},
+            #{price},
+            #{categoryCode},
+            'Y'
+        )
+
+    </insert>
+
 </mapper>
