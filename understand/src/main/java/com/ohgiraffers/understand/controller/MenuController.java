@@ -151,4 +151,26 @@ public class MenuController {
         return mv;
     }
 
+    @GetMapping("delete")
+    public ModelAndView delete(ModelAndView mv) {
+        mv.setViewName("menus/delete");
+
+        return mv;
+    }
+
+    @PostMapping("delete")
+    public ModelAndView deleteMenu(ModelAndView mv, MenuDTO menuDTO) {
+        int delete = menuService.delete(menuDTO);
+
+        if(delete <= 0){
+            mv.addObject("message", "삭제 실패");
+            mv.setViewName("error/errorMessage");
+
+        }else {
+            mv.setViewName("menus/returnMessage");
+        }
+
+        return mv;
+    }
+
 }

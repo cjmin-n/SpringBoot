@@ -64,4 +64,10 @@ public class MenuService {
         int menu = menuDAO.update(menuDTO);
         return menu;
     }
+
+    public int delete(MenuDTO menuDTO) {
+
+        int menu = menuDAO.delete(menuDTO);
+        return menu;
+    }
 }
