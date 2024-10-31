@@ -93,8 +93,12 @@ public class MenuController {
     }
 
     @PostMapping("update")
+    // 프론트 - 자바스크립트에서 onsubmit 으로 가공
 //    public ModelAndView updateMenu(ModelAndView mv, MenuDTO menuDTO) {
-    public ModelAndView updateMenu(ModelAndView mv, @RequestParam Map<String,String> parameters) {
+
+
+     // 내가 한 방식
+    /*public ModelAndView updateMenu(ModelAndView mv, @RequestParam Map<String,String> parameters) {
 
         int code = Integer.parseInt(parameters.get("code"));
         String name = parameters.get("name");
@@ -119,7 +123,20 @@ public class MenuController {
         menuDTO.setCode(code);
         menuDTO.setName(name);
         menuDTO.setPrice(priceInt);
-        menuDTO.setCategoryCode(categoryCodeInt);
+        menuDTO.setCategoryCode(categoryCodeInt);*/
+    
+    // 선생님이 알려준 방식
+    public ModelAndView updateMenu(ModelAndView mv,
+                                   @RequestParam("code") int code,
+                                   @RequestParam(name="name", defaultValue = "") String name,
+                                   @RequestParam(name="price", defaultValue = "0") int price,
+                                   @RequestParam(name="categoryCode",defaultValue = "0") int categoryCode) {
+
+        MenuDTO menuDTO = new MenuDTO();
+        menuDTO.setCode(code);
+        menuDTO.setName(name);
+        menuDTO.setPrice(price);
+        menuDTO.setCategoryCode(categoryCode);
 
         int update = menuService.update(menuDTO);
 

@@ -45,13 +45,13 @@
     <update id="update" parameterType="com.ohgiraffers.understand.dto.MenuDTO">
         UPDATE TBL_MENU
             <trim prefix="SET" prefixOverrides=",">
-                <if test="name != ''">
+                <if test="name != '' and name != null">
                     MENU_NAME = #{name}
                 </if>
-                <if test="price != 0">
+                <if test="price != 0 and price != null">
                     , MENU_PRICE = #{price}
                 </if>
-                <if test="categoryCode != 0">
+                <if test="categoryCode != 0 and categoryCode != null">
                     , CATEGORY_CODE = #{categoryCode}
                 </if>
             </trim>
