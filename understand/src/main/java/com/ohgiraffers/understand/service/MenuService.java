@@ -52,4 +52,16 @@ public class MenuService {
 
         return result;
     }
+
+
+    public int update(MenuDTO menuDTO) {
+
+        if(menuDTO.getPrice() < 0 || menuDTO.getCategoryCode() < 0 || menuDTO.getCode() <= 0){ // 가격, 메뉴코드, 카테고리 코드가 0이거나 음수일 때
+            return 0;
+        }
+
+
+        int menu = menuDAO.update(menuDTO);
+        return menu;
+    }
 }

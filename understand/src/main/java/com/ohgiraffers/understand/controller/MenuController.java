@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Controller
@@ -81,6 +82,54 @@ public class MenuController {
             mv.setViewName("menus/returnMessage");
         }
 
+
+        return mv;
+    }
+
+    @GetMapping("update")
+    public ModelAndView update(ModelAndView mv){
+        mv.setViewName("menus/update");
+        return mv;
+    }
+
+    @PostMapping("update")
+//    public ModelAndView updateMenu(ModelAndView mv, MenuDTO menuDTO) {
+    public ModelAndView updateMenu(ModelAndView mv, @RequestParam Map<String,String> parameters) {
+
+        int code = Integer.parseInt(parameters.get("code"));
+        String name = parameters.get("name");
+        String price = parameters.get("price");
+        String categoryCode = parameters.get("categoryCode");
+
+        int priceInt = 0;
+        int categoryCodeInt = 0;
+        if(price == null || price.isEmpty()){
+            priceInt = 0;
+        }else {
+            priceInt = Integer.parseInt(price);
+        }
+
+        if(categoryCode == null || categoryCode.isEmpty()){
+            categoryCodeInt = 0;
+        }else {
+            categoryCodeInt = Integer.parseInt(categoryCode);
+        }
+
+        MenuDTO menuDTO = new MenuDTO();
+        menuDTO.setCode(code);
+        menuDTO.setName(name);
+        menuDTO.setPrice(priceInt);
+        menuDTO.setCategoryCode(categoryCodeInt);
+
+        int update = menuService.update(menuDTO);
+
+        if(update <= 0){
+            mv.addObject("message", "업데이트 실패");
+            mv.setViewName("error/errorMessage");
+
+        }else {
+            mv.setViewName("menus/returnMessage");
+        }
 
         return mv;
     }
