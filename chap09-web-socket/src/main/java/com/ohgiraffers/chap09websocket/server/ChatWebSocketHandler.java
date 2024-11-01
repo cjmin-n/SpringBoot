@@ -1,5 +1,8 @@
 package com.ohgiraffers.chap09websocket.server;
 
+import org.apache.catalina.filters.RemoteIpFilter;
+import org.springframework.web.socket.CloseStatus;
+import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
@@ -9,8 +12,47 @@ import java.util.Set;
 
 public class ChatWebSocketHandler extends TextWebSocketHandler {
 
+    // 접속한 클라이언트의 webSocketSession 을 관리할 set
     private static Set<WebSocketSession> clients = Collections.synchronizedSet(new HashSet<>());  // synchronizedSet : 다수의 사용자가 사용하기에 안전한 set 이다.
 
+    @Override
+    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        // 클라이언트가 WebSocket 연결을 성공적으로 수행했을 때 호출되는 메소드
+        // 몇명이상 받고 싶지않을 때 조건문 걸면 됨.
+        clients.add(session);
+        System.out.println("웹소켓 연결 : " + session.getId()); // 소켓 연결 될때마다 다름
+    }
+
+    @Override
+    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+        // 클라이언트로부터 텍스트 메시지를 수신했을 때 호출되는 메소드
+        System.out.println("메시지 출력 : " + session.getId() + message.getPayload());
+        // 안전하게 순차적으로 처리 (없어도 됨)
+        synchronized (clients){
+            for(WebSocketSession client : clients){
+                if(!client.equals(session)){
+                    // 메세지를 자기 자신을 제외하고 전송
+                    client.sendMessage(new TextMessage(message.getPayload()));
+                }
+            }
+        }
+
+        // DB 에 채팅내역을 저장하고 싶으면 여기서 만들어야 함
+    }
+
+    @Override
+    public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
+        // 통신 중 에러가 발생했을 때 호출되는 메소드
+        System.out.println("에러 발생 : " + session.getId());
+        exception.printStackTrace();
+    }
+
+    @Override
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+        // 클라이언트가 WebSocket 연결을 닫았을 때 호출되는 메소드
+        clients.remove(session);
+        System.out.println("웹소켓 종료 : " + session.getId());
+    }
 
 
 }

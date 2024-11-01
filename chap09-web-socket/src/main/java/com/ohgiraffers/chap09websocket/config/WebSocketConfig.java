@@ -17,7 +17,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
         // WebSocket 핸들러(웹소켓에 관한 것을 설정-ChatWebSocketHandler)를 등록하는 메소드
 
         registry.addHandler(new ChatWebSocketHandler(), // 만든 핸들러 등록
-                "/chattigServer") // 경로
+                "/chattingServer") // 경로
                 .setAllowedOrigins("*"); // 모든 곳(아무 사용자)에서 접근가능하도록
 
     }
