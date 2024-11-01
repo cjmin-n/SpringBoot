@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket 채팅</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+        /* 채팅 창 스타일 */
+        #chatWindow {
+            border: 1px solid #ccc;
+            width: 380px;
+            height: 400px;
+            overflow-y: scroll;
+            padding: 10px;
+            background-color: #fff;
+        }
+        /* 메시지 입력창 스타일 */
+        #chatMessage {
+            width: 300px;
+            margin-top: 10px;
+        }
+        /* 전송 버튼 스타일 */
+        #sendBtn {
+            margin-top: 10px;
+            padding: 5px 10px;
+        }
+        /* 사용자가 보낸 메시지 스타일 */
+        .myMsg {
+            text-align: right;
+            margin-top: 5px;
+            color: blue;
+        }
+        /* 다른 사용자가 보낸 메시지 스타일 */
+        .otherMsg {
+            margin-top: 5px;
+            color: #f32f00;
+        }
+    </style>
+</head>
+<body>
+    <h1>WebSocket 채팅방</h1>
+    <div id="chatWindow"></div>
+    <input type="text" id="chatMessage" placeholder="메시지 입력" autofocus/>
+    <button id="sendBtn">전송</button>
+
+
+    <script>
+
+        let chatWindow; // 채팅창 변수
+        let chatMessage; // 채팅 메시지 입력
+        let userId; // 사용자 아이디 변수
+        let webSocket; // 소켓 객체를 저장할 변수
+
+        // 페이지 로드 시 실행되는 함수
+        window.onload = function(){
+            chatWindow = document.getElementById("chatWindow");
+            chatMessage = document.getElementById("chatMessage");
+
+            // 현재 url 쿼리 스트링 파라미터 가져옴
+            const urlParams = new URLSearchParams(window.location.search);
+            userId = urlParams.get("userId");
+
+            // 추가 검증
+            if(userId === null || userId.trim() === ""){
+                alert("유효한 사용자 아이디가 없습니다.");
+                window.close(); // 유효한 아이디가 없으면 채팅창 닫음.
+            }else {
+                connectWebSocket(); // 소켓 연결 함수 호출
+            }
+        };
+
+
+        // WebSocket 연결을 설정하는 함수
+        function connectWebSocket(){
+            // 현재 프로토콜에 따라서 WebSocket 프로토콜 결정
+            let wsProtocol = location.protocol === 'https:' ? 'wss://' : 'ws://';
+
+            let wsUrl = wsProtocol + location.host + "/chattingServer"; // location.host 현재 웹페이지 주소 (포트번호 포함된)
+                        // ws://localhost:8080/chattingServer
+            // 요청할 때마다 소켓에서 새로운 세션을 생성한다.
+
+            webSocket = new WebSocket(wsUrl);
+
+            // 우리 서버에 요청을 받을 곳을 만들어야 한다.
+
+        }
+
+    </script>
+
+</body>
+</html>

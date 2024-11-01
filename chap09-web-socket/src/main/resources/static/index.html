@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>웹소켓 채팅 로그인 창</h1>
+    <form id="loginForm">
+        <label for="userId">사용할 아이디 입력</label>
+        <input type="text" id="userId" name="userId" required/>
+        <button type="submit">채팅방 입장</button>
+    </form>
+
+    <script>
+        /*한글 닉네임 허용하기 위해 공백 제거 후, 인코딩해서 요청전달.*/
+        document.getElementById("loginForm").addEventListener("submit", function(event){
+           event.preventDefault(); // 폼의 기본 동작을 막음
+           let userId = document.getElementById("userId").value.trim();
+           if(userId !== ""){
+               location.href = "/chat?userId=" + encodeURIComponent(userId);
+           } else {
+               alert("아이디를 입력하세요.");
+           }
+        });
+    </script>
+</body>
+</html>
